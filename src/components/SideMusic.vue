@@ -19,6 +19,11 @@
 <script>
 export default {
   name: "SideMusic",
+  data() {
+    return {
+      curentTrack: ""
+    }
+  },
   props: {
     tab: Object
   },
@@ -31,6 +36,7 @@ export default {
 </script>
 
 <style scoped>
+
 #bg{
   margin: 20px 10px 20px 10px;
   display: grid;
@@ -43,7 +49,7 @@ export default {
   transform: skewX(-4deg);
 }
 
-#presentation, #controls, #lyric{
+#presentation{
   margin: 10px;
 }
 
@@ -64,11 +70,11 @@ export default {
   margin: auto;
   color:white;
   text-align: center;
-  margin-top: 15px;
   font-size: 1.5em;
 }
 
 #minitabs{
+  overflow: auto;
   grid-row: 3;
   grid-column: 1;
 }
@@ -173,9 +179,10 @@ span:nth-child(2) {
 }
 
 .minitab {
+  padding: 5px;
   /*width: 140px;*/
   /*height: 45px;*/
-  margin: 20px 0px;
+  margin: 20px 10px;
   font-size: 23px;
   cursor: pointer;
   border: none;
@@ -194,7 +201,7 @@ span:nth-child(2) {
   top: 0;
   left: 0;
   width: 5px;
-  border-radius: 10px;
+  border-radius: 6px;
   height: 100%;
   background-color: rgb(174, 0, 255);
   z-index: -1;
@@ -210,5 +217,23 @@ span:nth-child(2) {
 }
 
 
+
+/*Скроллбар*/
+::-webkit-scrollbar{
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-thumb{
+  background:  linear-gradient(13deg, #001EFF 14%,#AE00FF 64%);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover{
+  background:  linear-gradient(13deg, #001EFF 14%,#AE00FF 64%);
+}
+::-webkit-scrollbar-track{
+  background: #0f1c3d;
+  border-radius: 10px;
+  box-shadow: inset 0px 0px 0px 0px ;
+}
 
 </style>
