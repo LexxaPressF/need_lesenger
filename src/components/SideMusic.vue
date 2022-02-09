@@ -175,7 +175,6 @@ span:nth-child(2)
 span:nth-child(2)
 span:nth-child(2) {
   transition: none;
-  transition-delay: none;
 }
 
 .minitab {
