@@ -5,14 +5,14 @@
   <span></span>
   <span></span>
   <div id="presentation">
-    <div id="cover" v-bind:style="{ background: 'url(https://drive.google.com/file/d/1NywwVOGWmcvS8xIeQS2u34qbbIRvxqXk/view?usp=sharing)'}"></div>
+    <div id="cover" v-bind:style="{ backgroundImage: `url(${needCover})`}"></div>
   <div id="title">{{ tab.name }}</div>
   </div>
-  <div id="controls">
-
-    <div id="timeline"></div>
+  <div id="minitabs">
+  <button class="minitab" v-for="track in tab.tracks" :key="track.id">
+    {{track}}
+  </button>
   </div>
-  <div id="lyric"></div>
 </div>
 </template>
 
@@ -23,8 +23,8 @@ export default {
     tab: Object
   },
   computed: {
-    needCover: function () {
-        return this.tab.cover
+    needCover() {
+        return require(`../assets/img/${this.tab.cover}`)
     }
   }
 }
@@ -38,7 +38,7 @@ export default {
   max-height: 90vh;
   border: 3px solid white;
   border-radius: 20px 50px 20px 50px;
-  grid-template-rows: 1fr 2fr 1fr 2fr;
+  grid-template-rows: 1fr 2fr 3fr;
   grid-template-columns: 1fr;
   transform: skewX(-4deg);
 }
@@ -54,11 +54,10 @@ export default {
 }
 
 #cover{
-  /*background: url('../assets/img/info.jpg');*/
   background-repeat: no-repeat;
   background-size: contain;
-  background-position: bottom;
-  height: 250px;
+  background-position: center;
+  min-height: 250px;
 }
 
 #title{
@@ -69,17 +68,11 @@ export default {
   font-size: 1.5em;
 }
 
-#controls{
+#minitabs{
   grid-row: 3;
   grid-column: 1;
-  display:flex;
 }
 
-#lyric{
-  grid-row: 4;
-  grid-column: 1;
-  /*background-color: red;*/
-}
 
 /*Для таба как для кнопки*/
 #bg {
@@ -162,13 +155,14 @@ export default {
   transition-delay: 0.52s;
 }
 
-#bg:active {
-  background: #ae00af;
-  background: linear-gradient(to top right, #ae00af, #001eff);
-  color: #bfbfbf;
-  box-shadow: 0 0 8px #ae00ff, 0 0 8px #001eff, 0 0 8px #ae00ff;
-  transition: 0.1s;
-}
+/*При нажатии на большой таб*/
+/*#bg:active {*/
+/*  background: #ae00af;*/
+/*  background: linear-gradient(to top right, #ae00af, #001eff);*/
+/*  color: #bfbfbf;*/
+/*  box-shadow: 0 0 8px #ae00ff, 0 0 8px #001eff, 0 0 8px #ae00ff;*/
+/*  transition: 0.1s;*/
+/*}*/
 
 #bg:active span:nth-child(1)
 span:nth-child(2)
@@ -177,5 +171,44 @@ span:nth-child(2) {
   transition: none;
   transition-delay: none;
 }
+
+.minitab {
+  /*width: 140px;*/
+  /*height: 45px;*/
+  margin: 20px 0px;
+  font-size: 23px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: white;
+  font-weight: 700;
+  position: relative;
+  transition: all 0.5s;
+  z-index: 1;
+}
+
+.minitab::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  border-radius: 10px;
+  height: 100%;
+  background-color: rgb(174, 0, 255);
+  z-index: -1;
+  transition: all 0.5s;
+}
+
+.minitab:hover::before {
+  width: 100%;
+}
+
+.minitab:hover {
+  color: #040716;
+}
+
+
 
 </style>

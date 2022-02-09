@@ -11,29 +11,29 @@ import SideMusic from "@/components/SideMusic";
 let SIF1 = {
       id: 1,
       name: "Self-infected flower pt. 1",
-      tracks: ["Helpless Observer ru", "Laxity Blossom ru",
-        "Laxity Blossom en", "Helpless Observer en"],
-      cover: 'url("../assets/img/SIF1.jpg")'
+      tracks: ["Helpless Observer ru", "Helpless Observer en", "Laxity Blossom ru",
+        "Laxity Blossom en"],
+      cover: 'SIF1.jpg'
     }
 let SIF2 = {
   id: 2,
   name: "Self-infected flower pt. 2",
   tracks: ["Love Hate Love", "Disease",
     "A Cold Place"],
-  cover: 'url("../assets/img/SIF2.jpg")'
+  cover: 'SIF2.jpg'
 }
 let SR = {
   id: 3,
   name: "Slowed and Reverbed",
   tracks: ["Helpless Observer (S&R)", "Love Hate Love (S&R)",
     "Disease (S&R)", "A Cold Place (S&R)"],
-  cover: 'url("../assets/img/lhl.jpg")'
+  cover: 'lhl.png'
 }
 let INFO = {
   id: 4,
   name: "О нас",
   tracks: [],
-  cover: 'url("../assets/img/info.jpg")'
+  cover: 'info.jpg'
 }
 
 
@@ -54,14 +54,13 @@ export default {
 <style>
 body {
   height: 100vh;
-  grid-template-rows: repeat(auto-fill, 100px);
-  grid-template-columns: repeat(auto-fill, 50px);
   margin: 0;
   background-color: #040715;
 }
 #main_bg{
-  margin: 0 0 0 40px;
+  margin:0 50px;
   display:flex;
+  justify-content: center;
   gap: 40px;
 }
 </style>
