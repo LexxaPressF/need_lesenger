@@ -9,7 +9,8 @@
   <div id="title">{{ tab.name }}</div>
   </div>
   <div id="minitabs">
-  <button class="minitab" v-for="track in tab.tracks" :key="track.id">
+  <button class="minitab" v-for="track in tab.tracks" :key="track.id"
+    @click="$emit('trackChosen')">
     {{track}}
   </button>
   </div>
@@ -19,11 +20,6 @@
 <script>
 export default {
   name: "SideMusic",
-  data() {
-    return {
-      curentTrack: ""
-    }
-  },
   props: {
     tab: Object
   },
@@ -38,13 +34,12 @@ export default {
 <style scoped>
 
 #bg{
-  margin: 20px 10px 20px 10px;
+  margin: 0 20px;
   display: grid;
   width: 225px;
-  max-height: 90vh;
-  border: 3px solid white;
+  max-height: 80vh;
   border-radius: 20px 50px 20px 50px;
-  grid-template-rows: 1fr 2fr 3fr;
+  grid-template-rows: 2fr 3fr;
   grid-template-columns: 1fr;
   transform: skewX(-4deg);
 }
@@ -54,7 +49,7 @@ export default {
 }
 
 #presentation{
-  grid-row: 2;
+  grid-row: 1;
   grid-column: 1;
   display: grid;
 }
@@ -75,7 +70,7 @@ export default {
 
 #minitabs{
   overflow: auto;
-  grid-row: 3;
+  grid-row: 2;
   grid-column: 1;
 }
 
@@ -92,7 +87,6 @@ export default {
   font-size: 15px;
   overflow: hidden;
   transition: 0.2s;
-  border-radius: 20px;
   cursor: pointer;
   font-weight: bold;
 }
@@ -179,8 +173,6 @@ span:nth-child(2) {
 
 .minitab {
   padding: 5px;
-  /*width: 140px;*/
-  /*height: 45px;*/
   margin: 20px 10px;
   font-size: 23px;
   cursor: pointer;
@@ -196,6 +188,7 @@ span:nth-child(2) {
 
 .minitab::before {
   content: "";
+  color: rgb(4, 7, 22);
   position: absolute;
   top: 0;
   left: 0;
@@ -209,12 +202,23 @@ span:nth-child(2) {
 
 .minitab:hover::before {
   width: 100%;
+  content: "Play";
+  z-index: 1;
+  margin: auto;
+  text-align: center;
 }
 
 .minitab:hover {
-  color: #040716;
+  color: #ae00ff;
 }
 
+.minitab:focus{
+  content: "";
+  border-radius: 6px;
+  background-color: rgb(174, 0, 255);
+  z-index: -1;
+  color: #040716;
+}
 
 
 /*Скроллбар*/

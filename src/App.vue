@@ -1,12 +1,17 @@
 <template>
   <div id="main_bg">
-  <SideMusic v-for="tab in tabs" :key="tab.id"
-             :tab="tab"/>
+    <MusicPlayer/>
+    <div id="wrapper">
+    <SideMusic v-for="tab in tabs" :key="tab.id"
+              :tab="tab"
+               v-on:trackChosen="console.log('hi')"/>
+    </div>
   </div>
 </template>
 
 <script>
 import SideMusic from "@/components/SideMusic";
+import MusicPlayer from "@/components/MusicPlayer";
 
 let SIF1 = {
       id: 1,
@@ -41,13 +46,19 @@ let INFO = {
 export default {
   name: 'App',
   components: {
+    MusicPlayer,
     SideMusic
   },
   data() {
     return {
       tabs: [SIF1, SIF2, SR, INFO]
     }
-  }
+  },
+  // computed: {
+  //   trackChosen(){
+  //
+  //   }
+  // }
 }
 </script>
 
@@ -59,8 +70,16 @@ body {
 }
 #main_bg{
   margin:0 50px;
+  display: grid;
+  grid-template-rows: 110px auto;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+
+#wrapper{
+  grid-row: 2;
+  grid-column: 1;
   display:flex;
   justify-content: center;
-  gap: 40px;
 }
 </style>
