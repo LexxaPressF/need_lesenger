@@ -1,15 +1,16 @@
 <template>
     <div id="bg">
-        <div id="cover">
+        <div id="cover" v-bind:style="{ backgroundImage: `url(${getCover()})`}">
 
         </div>
         <div id="controls">
-            <button>prev</button>
-            <button>play</button>
-            <button>next</button>
+            <button @click="previousTrack">prev</button>
+            <button v-if="isPlaying" @click="playTrack()">stop</button>
+            <button v-else @click="playTrack()">play</button>
+            <button @click="nextTrack">next</button>
         </div>
         <div id="title">
-            A Cold Place
+            {{trackName}}
         </div>
         <div id="timeline"></div>
     </div>
@@ -17,7 +18,52 @@
 
 <script>
     export default {
-        name: "MusicPlayer"
+        name: "MusicPlayer",
+        data() {
+            return {
+                currentAlbum: {},
+                trackName: "",
+                isPlaying: false,
+                currentTrack: new Audio()
+            }
+        },
+        mounted(){
+            this.emitter.on("trackChosen",
+                    chosenTrack =>{
+                this.currentAlbum = chosenTrack[0]
+                this.trackName = chosenTrack[1]
+                this.currentTrack.pause()
+                this.currentTrack = new Audio(require(`../assets/music/${this.currentAlbum.music[this.currentAlbum.tracks.indexOf(this.trackName)]}`))
+                this.isPlaying = false
+            })
+        },
+        methods: {
+            getCover(){
+                if (Object.keys(this.currentAlbum).length === 0) return require(`../assets/img/none.jpg`)
+                else return require(`../assets/img/${this.currentAlbum.cover}`)
+            },
+            playTrack(){
+                this.isPlaying = !this.isPlaying
+                if (this.isPlaying === true) {
+                    this.currentTrack.play()
+                }
+                else {
+                    this.currentTrack.pause()
+                }
+            },
+            previousTrack(){
+                this.isPlaying = false
+                this.currentTrack.pause()
+                this.currentTrack = new Audio(require(`../assets/music/${this.currentAlbum.music[this.currentAlbum.tracks.indexOf(this.trackName) - 1]}`))
+                this.trackName = this.currentAlbum.tracks[this.currentAlbum.tracks.indexOf(this.trackName) + 1]
+            },
+            nextTrack(){
+                this.isPlaying = false
+                this.currentTrack.pause()
+                this.currentTrack = new Audio(require(`../assets/music/${this.currentAlbum.music[this.currentAlbum.tracks.indexOf(this.trackName) + 1]}`))
+                this.trackName = this.currentAlbum.tracks[this.currentAlbum.tracks.indexOf(this.trackName) + 1]
+            }
+        }
     }
 </script>
 
@@ -56,7 +102,9 @@
 #cover{
     grid-row: 1/3;
     grid-column: 1;
-    background: white;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
 }
 
 #controls{

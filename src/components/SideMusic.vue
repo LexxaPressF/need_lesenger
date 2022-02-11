@@ -10,7 +10,7 @@
   </div>
   <div id="minitabs">
   <button class="minitab" v-for="track in tab.tracks" :key="track.id"
-    @click="$emit('trackChosen')">
+    @click="trackPass(tab, track)">
     {{track}}
   </button>
   </div>
@@ -27,7 +27,13 @@ export default {
     needCover() {
         return require(`../assets/img/${this.tab.cover}`)
     }
+  },
+  methods:{
+    trackPass(album, trackName){
+      return this.emitter.emit("trackChosen", [album, trackName])
+    }
   }
+
 }
 </script>
 
