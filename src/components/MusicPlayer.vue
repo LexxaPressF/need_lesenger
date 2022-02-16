@@ -1,18 +1,19 @@
 <template>
     <div id="bg">
         <div id="cover" v-bind:style="{ backgroundImage: `url(${getCover()})`}">
-
         </div>
         <div id="controls">
-            <button @click="previousTrack">prev</button>
-            <button v-if="isPlaying" @click="playTrack()">stop</button>
-            <button v-else @click="playTrack()">play</button>
-            <button @click="nextTrack">next</button>
+            <a class="btn" @click="previousTrack"><i class="fas fa-backward"></i></a>
+            <a class="btn" v-if="isPlaying" @click="playTrack()"><i class="fas fa-stop"></i></a>
+            <a class="btn" v-else @click="playTrack()"><i class="fas fa-play"></i></a>
+            <a class="btn" @click="nextTrack"><i class="fas fa-forward"></i></a>
         </div>
         <div id="title">
             {{trackName}}
         </div>
-        <div id="timeline"></div>
+        <div id="timeline">
+            <div id="playhead" v-bind:style="{marginLeft: `${100 * this.currentTrack.currentTime / this.duration}%`}"></div>
+        </div>
     </div>
 </template>
 
@@ -24,7 +25,9 @@
                 currentAlbum: {},
                 trackName: "",
                 isPlaying: false,
-                currentTrack: new Audio()
+                currentTrack: new Audio(),
+                // currentTime: (typeof this.currentTrack.currentTime === "undefined")? 0 : this.currentTrack.currentTime,
+                duration: 0
             }
         },
         mounted(){
@@ -34,7 +37,8 @@
                 this.trackName = chosenTrack[1]
                 this.currentTrack.pause()
                 this.currentTrack = new Audio(require(`../assets/music/${this.currentAlbum.music[this.currentAlbum.tracks.indexOf(this.trackName)]}`))
-                this.isPlaying = false
+                this.currentTrack.play()
+                this.isPlaying = true
             })
         },
         methods: {
@@ -44,6 +48,7 @@
             },
             playTrack(){
                 this.isPlaying = !this.isPlaying
+                this.duration = this.currentTrack.duration
                 if (this.isPlaying === true) {
                     this.currentTrack.play()
                 }
@@ -52,15 +57,17 @@
                 }
             },
             previousTrack(){
-                this.isPlaying = false
+                this.isPlaying = true
                 this.currentTrack.pause()
                 this.currentTrack = new Audio(require(`../assets/music/${this.currentAlbum.music[this.currentAlbum.tracks.indexOf(this.trackName) - 1]}`))
-                this.trackName = this.currentAlbum.tracks[this.currentAlbum.tracks.indexOf(this.trackName) + 1]
+                this.currentTrack.play()
+                this.trackName = this.currentAlbum.tracks[this.currentAlbum.tracks.indexOf(this.trackName) - 1]
             },
             nextTrack(){
-                this.isPlaying = false
+                this.isPlaying = true
                 this.currentTrack.pause()
                 this.currentTrack = new Audio(require(`../assets/music/${this.currentAlbum.music[this.currentAlbum.tracks.indexOf(this.trackName) + 1]}`))
+                this.currentTrack.play()
                 this.trackName = this.currentAlbum.tracks[this.currentAlbum.tracks.indexOf(this.trackName) + 1]
             }
         }
@@ -74,7 +81,7 @@
     display: grid;
     border-radius: 20px 50px 20px 50px;
     grid-template-rows: 1fr 1fr;
-    grid-template-columns: 100px 150px auto;
+    grid-template-columns: 100px 200px auto;
     transform: skewX(-4deg);
     width: 50vw;
     margin: 0 auto;
@@ -90,7 +97,6 @@
     font-size: 15px;
     overflow: hidden;
     transition: 0.2s;
-    cursor: pointer;
     font-weight: bold;
 }
 
@@ -110,7 +116,6 @@
 #controls{
     grid-row: 1/3;
     grid-column: 2;
-    /*background: red;*/
 }
 
 
@@ -123,13 +128,53 @@
 }
 
 #timeline{
+    cursor: pointer;
     grid-row: 2;
     grid-column: 3;
-    background: green;
+    border: 1px rgba(111, 111, 111, 0.5) solid;
+    height: 11px;
+    float: left;
+    border-radius: 15px;
+}
+
+#playhead{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-top: 1px;
+    background: rgba(0, 255, 196, 0.82);
 }
 
 
 /*Стиль для кнопок переключения*/
 
+#controls{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 80px;
+}
+
+.btn{
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: skewX(4deg);
+    font-size: 20px;
+    text-align: center;
+    color: rgba(102, 102, 102, 0.5);
+    text-decoration: none;
+}
+#bg:hover .btn{
+    box-shadow: 0 0 10px #ae00ff, 0 0 25px #001eff, 0 0 50px #ae00ff;
+    color: #7a00bb;
+    transition-delay: 0.1s;
+}
     
 </style>

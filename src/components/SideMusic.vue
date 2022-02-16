@@ -93,7 +93,6 @@ export default {
   font-size: 15px;
   overflow: hidden;
   transition: 0.2s;
-  cursor: pointer;
   font-weight: bold;
 }
 

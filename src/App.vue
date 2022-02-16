@@ -36,13 +36,6 @@ let SR = {
   music: ["Need Lesenger - Helpless Observer (Slowed).mp3", "Need Lesenger - Love Hate Love (Slowed).mp3", "Need Lesenger - A Cold Place (Slowed).mp3"],
   cover: 'lhl.png'
 }
-let INFO = {
-  id: 4,
-  name: "О нас",
-  tracks: [],
-  cover: 'info.jpg'
-}
-
 
 
 export default {
@@ -53,7 +46,7 @@ export default {
   },
   data() {
     return {
-      tabs: [SIF1, SIF2, SR, INFO]
+      tabs: [SIF1, SIF2, SR]
     }
   }
 }
