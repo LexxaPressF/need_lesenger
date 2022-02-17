@@ -26,7 +26,6 @@
                 trackName: "",
                 isPlaying: false,
                 currentTrack: new Audio(),
-                // currentTime: (typeof this.currentTrack.currentTime === "undefined")? 0 : this.currentTrack.currentTime,
                 duration: 0
             }
         },

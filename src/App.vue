@@ -25,7 +25,8 @@ let SIF2 = {
   id: 2,
   name: "Self-infected flower pt. 2",
   tracks: ["Love Hate Love", "Disease", "A Cold Place"],
-  music: ["Need Lesenger - Love Hate Love.mp3", "Need Lesenger - Disease.mp3", "Need Lesenger - A Cold Place.mp3"],
+  music: ["Need Lesenger - Love Hate Love.mp3", "Need Lesenger - Disease.mp3",
+    "Need Lesenger - A Cold Place.mp3"],
   cover: 'SIF2.jpg'
 }
 let SR = {
