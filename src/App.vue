@@ -60,7 +60,8 @@ body {
   background-color: #040715;
 }
 #main_bg{
-  margin:0 50px;
+  /*margin:0 0px;*/
+  height: 97vh;
   display: grid;
   grid-template-rows: 110px auto;
   grid-template-columns: 1fr;
@@ -68,6 +69,8 @@ body {
 }
 
 #wrapper{
+  max-height: 90vh;
+  min-height: 70vh;
   grid-row: 2;
   grid-column: 1;
   display:flex;

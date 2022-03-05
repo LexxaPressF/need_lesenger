@@ -137,17 +137,24 @@
 }
 
 #playhead{
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     margin-top: 1px;
-    background: rgba(0, 255, 196, 0.82);
+    background: rgba(111, 111, 111, 0.5);
+}
+
+#bg:hover #playhead{
+    background: rgb(126, 1, 184);
+    box-shadow: 0 0 7px #ae00ff, 0 0 5px #001eff, 0 0 20px #ae00ff;
+    transition-delay: 0.1s;
 }
 
 
 /*Стиль для кнопок переключения*/
 
 #controls{
+    transform: skewX(-2deg);
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -157,19 +164,19 @@
 
 .btn{
     cursor: pointer;
-    height: 40px;
-    width: 40px;
-    border-radius: 30px;
+    height: 50px;
+    width: 30px;
+    border-radius: 10px 20px 10px 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transform: skewX(4deg);
     font-size: 20px;
     text-align: center;
     color: rgba(102, 102, 102, 0.5);
     text-decoration: none;
 }
+
 #bg:hover .btn{
     box-shadow: 0 0 10px #ae00ff, 0 0 25px #001eff, 0 0 50px #ae00ff;
     color: #7a00bb;
