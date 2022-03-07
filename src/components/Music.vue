@@ -1,5 +1,5 @@
 <template>
-<div id="bg">
+<div id="bg_music">
   <span></span>
   <span></span>
   <span></span>
@@ -39,7 +39,7 @@ export default {
 
 <style scoped>
 
-#bg{
+#bg_music{
   margin: 0 20px;
   display: grid;
   width: 225px;
@@ -82,7 +82,7 @@ export default {
 
 
 /*Для таба как для кнопки*/
-#bg {
+#bg_music {
   position: relative;
   padding: 1em 1.8em;
   outline: none;
@@ -96,16 +96,16 @@ export default {
   font-weight: bold;
 }
 
-#bg:hover {
+#bg_music:hover {
   box-shadow: 0 0 10px #ae00ff, 0 0 25px #001eff, 0 0 50px #ae00ff;
   transition-delay: 0.6s;
 }
 
-#bg span {
+#bg_music span {
   position: absolute;
 }
 
-#bg span:nth-child(1) {
+#bg_music span:nth-child(1) {
   top: 0;
   left: -100%;
   width: 100%;
@@ -113,12 +113,12 @@ export default {
   background: linear-gradient(90deg, transparent, #ae00ff);
 }
 
-#bg:hover span:nth-child(1) {
+#bg_music:hover span:nth-child(1) {
   left: 100%;
   transition: 0.7s;
 }
 
-#bg span:nth-child(3) {
+#bg_music span:nth-child(3) {
   bottom: 0;
   right: -100%;
   width: 100%;
@@ -126,13 +126,13 @@ export default {
   background: linear-gradient(90deg, transparent, #001eff);
 }
 
-#bg:hover span:nth-child(3) {
+#bg_music:hover span:nth-child(3) {
   right: 100%;
   transition: 0.7s;
   transition-delay: 0.35s;
 }
 
-#bg span:nth-child(2) {
+#bg_music span:nth-child(2) {
   top: -100%;
   right: 0;
   width: 2px;
@@ -140,13 +140,13 @@ export default {
   background: linear-gradient(180deg, transparent, #ae00ff);
 }
 
-#bg:hover span:nth-child(2) {
+#bg_music:hover span:nth-child(2) {
   top: 100%;
   transition: 0.7s;
   transition-delay: 0.17s;
 }
 
-#bg span:nth-child(4) {
+#bg_music span:nth-child(4) {
   bottom: -100%;
   left: 0;
   width: 2px;
@@ -154,14 +154,14 @@ export default {
   background: linear-gradient(360deg, transparent, #001eff);
 }
 
-#bg:hover span:nth-child(4) {
+#bg_music:hover span:nth-child(4) {
   bottom: 100%;
   transition: 0.7s;
   transition-delay: 0.52s;
 }
 
 /*При нажатии на большой таб*/
-/*#bg:active {*/
+/*#bg_music:active {*/
 /*  background: #ae00af;*/
 /*  background: linear-gradient(to top right, #ae00af, #001eff);*/
 /*  color: #bfbfbf;*/
@@ -169,7 +169,7 @@ export default {
 /*  transition: 0.1s;*/
 /*}*/
 
-#bg:active span:nth-child(1)
+#bg_music:active span:nth-child(1)
 span:nth-child(2)
 span:nth-child(2)
 span:nth-child(2) {

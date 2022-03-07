@@ -20,6 +20,9 @@
 <script>
     export default {
         name: "MusicPlayer",
+        props:{
+            currentTime: Number
+        },
         data() {
             return {
                 currentAlbum: {},
@@ -132,6 +135,7 @@
     grid-column: 3;
     border: 1px rgba(111, 111, 111, 0.5) solid;
     height: 11px;
+    width: 250px;
     float: left;
     border-radius: 15px;
 }
