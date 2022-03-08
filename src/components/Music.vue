@@ -43,7 +43,8 @@ export default {
   margin: 0 20px;
   display: grid;
   width: 225px;
-  max-height: 80vh;
+  height: 93vh;
+  /*max-height: 98vh;*/
   border-radius: 20px 50px 20px 50px;
   grid-template-rows: 2fr 3fr;
   grid-template-columns: 1fr;
@@ -159,15 +160,6 @@ export default {
   transition: 0.7s;
   transition-delay: 0.52s;
 }
-
-/*При нажатии на большой таб*/
-/*#bg_music:active {*/
-/*  background: #ae00af;*/
-/*  background: linear-gradient(to top right, #ae00af, #001eff);*/
-/*  color: #bfbfbf;*/
-/*  box-shadow: 0 0 8px #ae00ff, 0 0 8px #001eff, 0 0 8px #ae00ff;*/
-/*  transition: 0.1s;*/
-/*}*/
 
 #bg_music:active span:nth-child(1)
 span:nth-child(2)

@@ -1,23 +1,27 @@
 <template>
     <div id="bg_main">
-    <div id="bg_menu" :class="{scoped: musicActive}">
-        <MusicPlayer v-if="musicActive"/>
+    <div id="menu_band">
+<!--        <MusicPlayer v-if="musicActive"/>-->
+        <div id="menu">
         <router-link to="/About" class="point about">О нас</router-link>
         <router-link to="/Albums" class="point albums">Альбомы</router-link>
         <router-link to="/Cooperation" class="point coop">Сотрудничество</router-link>
         <router-link to="/Contacts" class="point contacts">Контакты</router-link>
+        </div>
     </div>
+    <div class="band first"></div>
+    <div class="band sec"></div>
+    <div class="band third"></div>
+    <div class="band forth"></div>
     <router-view/>
     </div>
 </template>
 
 <script>
-import MusicPlayer from "@/components/MusicPlayer";
 
 export default {
     name: "Menu",
     components:{
-        MusicPlayer
     },
     data(){
         return{
@@ -28,22 +32,35 @@ export default {
 </script>
 
 <style scoped>
-#bg_menu{
-    /*display: flex;*/
+#bg_main{
+    display: flex;
+    height: 100vh;
+
+}
+
+#menu_band{
+    display: flex;
+    flex-direction: column;
     justify-content: center;
-    place-items: center;
-    padding: 1em 1.8em;
+    width: 300px;
+}
+
+#menu{
+    margin-left: 10px;
+    border-left: solid 3px #303030;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    place-items: start;
 }
 
 .point{
-    border-radius: 20px 50px 20px 50px;
+    margin: 0 10px;
+    padding: 1em 15px;
     transform: skewX(-4deg);
-    text-align: center;
-
-    /*Для таба как для кнопки*/
-    padding: 1em 1.8em;
+    text-align: left;
+    text-decoration: none;
     outline: none;
-    border: 1px solid #303030;
     color: white;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -53,34 +70,19 @@ export default {
     font-weight: bold;
 }
 
-.point:hover {
-    box-shadow: 0 0 10px #ae00ff, 0 0 25px #001eff, 0 0 50px #ae00ff;
-    transition-delay: 0.1s;
+.point:hover{
+    transition: 0.3s ease-out;
+    transform: skewX(0deg);
+    border-left: solid 3px #303030;
+    padding: 10px;
+
 }
 
-.scoped{
-    display: grid;
-    grid-template-rows: 55px 55px;
-    grid-template-columns: auto 1fr 1fr;
+.point:focus{
+    transition: none;
+    transform: skewX(0deg);
+    border-left: solid 3px #303030;
+    padding: 10px;
 }
 
-.about{
-    grid-row: 1;
-    grid-column: 2;
-}
-
-.albums{
-    grid-row: 2;
-    grid-column: 2;
-}
-
-.coop{
-    grid-row: 1;
-    grid-column: 3;
-}
-
-.contacts{
-    grid-row: 2;
-    grid-column: 3;
-}
 </style>
