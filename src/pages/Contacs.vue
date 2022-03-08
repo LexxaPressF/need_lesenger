@@ -1,5 +1,5 @@
 <template>
-    <div id="bg_contacts"></div>
+    <div id="bg_contacts">Наши контакты</div>
 </template>
 
 <script>
@@ -9,5 +9,7 @@
 </script>
 
 <style scoped>
-
+#bg_contacts{
+    color:white
+}
 </style>

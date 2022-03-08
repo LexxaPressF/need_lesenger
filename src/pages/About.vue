@@ -1,5 +1,5 @@
 <template>
-    <div id="bg_about"></div>
+    <div id="bg_about">Страница о нас</div>
 </template>
 
 <script>
@@ -9,5 +9,7 @@
 </script>
 
 <style scoped>
-
+#bg_about{
+    color: white
+}
 </style>

@@ -1,7 +1,5 @@
 <template>
-    <div id="bg">
-        <div id="cover" v-bind:style="{ backgroundImage: `url(${getCover()})`}">
-        </div>
+    <div id="bg_mp">
         <div id="controls">
             <a class="btn" @click="previousTrack"><i class="fas fa-backward"></i></a>
             <a class="btn" v-if="isPlaying" @click="playTrack()"><i class="fas fa-stop"></i></a>
@@ -44,10 +42,6 @@
             })
         },
         methods: {
-            getCover(){
-                if (Object.keys(this.currentAlbum).length === 0) return require(`../assets/img/none.jpg`)
-                else return require(`../assets/img/${this.currentAlbum.cover}`)
-            },
             playTrack(){
                 this.isPlaying = !this.isPlaying
                 this.duration = this.currentTrack.duration
@@ -77,15 +71,14 @@
 </script>
 
 <style scoped>
-#bg{
-    grid-row: 1;
+#bg_mp{
+    grid-row: 1/3;
     grid-column: 1;
     display: grid;
     border-radius: 20px 50px 20px 50px;
     grid-template-rows: 1fr 1fr;
-    grid-template-columns: 100px 200px auto;
+    grid-template-columns: 200px auto;
     transform: skewX(-4deg);
-    width: 50vw;
     margin: 0 auto;
 
     /*Для таба как для кнопки*/
@@ -102,22 +95,14 @@
     font-weight: bold;
 }
 
-#bg:hover {
+#bg_mp:hover {
     box-shadow: 0 0 10px #ae00ff, 0 0 25px #001eff, 0 0 50px #ae00ff;
     transition-delay: 0.1s;
 }
 
-#cover{
-    grid-row: 1/3;
-    grid-column: 1;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-}
-
 #controls{
     grid-row: 1/3;
-    grid-column: 2;
+    grid-column: 1;
 }
 
 
@@ -126,13 +111,13 @@
     margin: 10px 0 2px 8px;
     vertical-align: bottom;
     grid-row: 1;
-    grid-column: 3;
+    grid-column: 2;
 }
 
 #timeline{
     cursor: pointer;
     grid-row: 2;
-    grid-column: 3;
+    grid-column: 2;
     border: 1px rgba(111, 111, 111, 0.5) solid;
     height: 11px;
     width: 250px;
@@ -148,7 +133,7 @@
     background: rgba(111, 111, 111, 0.5);
 }
 
-#bg:hover #playhead{
+#bg_mp:hover #playhead{
     background: rgb(126, 1, 184);
     box-shadow: 0 0 7px #ae00ff, 0 0 5px #001eff, 0 0 20px #ae00ff;
     transition-delay: 0.1s;
@@ -181,7 +166,7 @@
     text-decoration: none;
 }
 
-#bg:hover .btn{
+#bg_mp:hover .btn{
     box-shadow: 0 0 10px #ae00ff, 0 0 25px #001eff, 0 0 50px #ae00ff;
     color: #7a00bb;
     transition-delay: 0.1s;

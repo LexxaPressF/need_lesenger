@@ -1,5 +1,5 @@
 <template>
-    <div id="bg_coop"></div>
+    <div id="bg_coop">Страница сотрудничество</div>
 </template>
 
 <script>
@@ -9,5 +9,7 @@
 </script>
 
 <style scoped>
-
+#bg_coop{
+    color:white;
+}
 </style>

@@ -1,16 +1,12 @@
 <template>
     <div id="bg_albums">
-        <MusicPlayer/>
-        <div id="wrapper">
-            <Music v-for="tab in tabs" :key="tab.id"
-                   :tab="tab"/>
-        </div>
+        <Music v-for="tab in tabs" :key="tab.id"
+               :tab="tab"/>
     </div>
 </template>
 
 <script>
     import Music from "@/components/Music";
-    import MusicPlayer from "@/components/MusicPlayer";
 
     let SIF1 = {
         id: 1,
@@ -42,13 +38,16 @@
     export default {
         name: 'Albums',
         components: {
-            MusicPlayer,
             Music
         },
         data() {
             return {
-                tabs: [SIF1, SIF2, SR]
+                tabs: [SIF1, SIF2, SR],
+                activateMusic: true
             }
+        },
+        computed:{
+
         }
     }
 </script>
@@ -60,20 +59,10 @@
         background-color: #040715;
     }
     #bg_albums{
-        /*margin:0 0px;*/
-        height: 97vh;
-        display: grid;
-        grid-template-rows: 110px auto;
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
-
-    #wrapper{
         max-height: 90vh;
         min-height: 70vh;
-        grid-row: 2;
-        grid-column: 1;
         display:flex;
         justify-content: center;
     }
+
 </style>
