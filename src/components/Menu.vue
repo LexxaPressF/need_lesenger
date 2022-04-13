@@ -1,19 +1,13 @@
 <template>
-    <div id="bg_main">
-    <div id="menu_band">
-<!--        <MusicPlayer v-if="musicActive"/>-->
-        <div id="menu">
-        <router-link to="/About" class="point about">О нас</router-link>
-        <router-link to="/Albums" class="point albums">Альбомы</router-link>
-        <router-link to="/Cooperation" class="point coop">Сотрудничество</router-link>
-        <router-link to="/Contacts" class="point contacts">Контакты</router-link>
-        </div>
-    </div>
-    <div class="band first"></div>
-    <div class="band sec"></div>
-    <div class="band third"></div>
-    <div class="band forth"></div>
-    <router-view/>
+    <div id="bg_menu">
+        <img id="logo" src="../assets/img/logo_nl.svg"/>
+        <ul class="menu">
+            <li>о нас</li>
+            <li>альбомы</li>
+            <li>концерты</li>
+            <li>мерч</li>
+            <li>контакты</li>
+        </ul>
     </div>
 </template>
 
@@ -21,68 +15,45 @@
 
 export default {
     name: "Menu",
-    components:{
-    },
-    data(){
-        return{
-            musicActive: true,
-        }
-    }
+
 }
 </script>
 
 <style scoped>
-#bg_main{
-    display: flex;
-    height: 100vh;
 
+#bg_menu{
+    grid-column: 1;
 }
 
-#menu_band{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 300px;
+#logo{
+    position: fixed;
+    top: 73px;
+    left: 5%;
 }
 
-#menu{
-    margin-left: 10px;
-    border-left: solid 3px #303030;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    place-items: start;
+.menu{
+    position: fixed;
+    top: 220px;
+    left: 5%;
+
+    list-style-type: none;
+
+    border-left: rgb(0,0,0) 6px solid;
+    padding-left: 44px;
 }
 
-.point{
-    margin: 0 10px;
-    padding: 1em 15px;
-    transform: skewX(-4deg);
-    text-align: left;
-    text-decoration: none;
-    outline: none;
-    color: white;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-size: 15px;
-    overflow: hidden;
-    transition: 0.2s;
-    font-weight: bold;
+.menu li{
+    width: auto;
+    height: 24px;
+    margin-bottom: 18px;
+
+    font-size: 20px;
+
+    cursor: pointer;
 }
 
-.point:hover{
-    transition: 0.3s ease-out;
-    transform: skewX(0deg);
-    border-left: solid 3px #303030;
-    padding: 10px;
-
-}
-
-.point:focus{
-    transition: none;
-    transform: skewX(0deg);
-    border-left: solid 3px #303030;
-    padding: 10px;
+.menu li:last-child{
+    margin-bottom: 0;
 }
 
 </style>

@@ -5,13 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+    <script src="https://vk.com/js/api/openapi.js?169" type="text/javascript"></script>
     <title>Need Lesenger</title>
   </head>
   <body>
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
+    <script type="text/javascript">
+      VK.Widgets.Group("vk_groups",
+              {mode: 4,
+               width: "auto",
+               height: "600",
+               color3: '725FEA',
+               no_cover: "1",
+               }, 201929815);
+    </script>
     <div id="app"></div>
   </body>
 </html>
