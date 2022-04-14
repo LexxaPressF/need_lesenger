@@ -70,6 +70,8 @@ export default {
   src: url('assets/fonts/SFPRODISPLAYBOLD.woff') format('woff');
 }
 
+
+
 * {
   margin: 0;
   padding: 0;
@@ -78,8 +80,9 @@ export default {
 
 ::-webkit-scrollbar{
   width: 37px;
-  background: white;
+  height: 100px;
 }
+
 ::-webkit-scrollbar-thumb{
   background:  #725FEA;
   width: 8px;
@@ -101,7 +104,7 @@ export default {
   height: 100vh;
   display: grid;
   grid-template-columns: 180px 4fr;
-  grid-template-rows: auto 90%;
+  grid-template-rows: auto 16%;
   justify-content: space-between;
   gap: 20px;
 }
