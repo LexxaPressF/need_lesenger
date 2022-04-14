@@ -2,11 +2,11 @@
     <div id="bg_menu">
         <img id="logo" src="../assets/img/logo_nl.svg"/>
         <ul class="menu">
-            <li>о нас</li>
-            <li>альбомы</li>
-            <li>концерты</li>
-            <li>мерч</li>
-            <li>контакты</li>
+            <li @click="nav('about')">о нас</li>
+            <li @click="nav('albums')">альбомы</li>
+            <li @click="nav('concerts')">концерты</li>
+            <li @click="nav('merch')">мерч</li>
+            <li @click="nav('media')">медия</li>
         </ul>
     </div>
 </template>
@@ -15,14 +15,21 @@
 
 export default {
     name: "Menu",
-
+    methods:{
+      nav(to){
+        const position = document.querySelector(`.${to}`).offsetTop
+        console.log(position)
+        window.scrollTo({top:position, behavior:"smooth"})
+      }
+    }
 }
 </script>
 
 <style scoped>
 
 #bg_menu{
-    grid-column: 1;
+  grid-column: 1;
+  grid-row: 1;
 }
 
 #logo{
@@ -55,5 +62,7 @@ export default {
 .menu li:last-child{
     margin-bottom: 0;
 }
+
+/*Анимация меню*/
 
 </style>

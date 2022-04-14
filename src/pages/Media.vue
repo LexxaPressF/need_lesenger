@@ -15,8 +15,8 @@
 
 <style scoped>
 
-.wrapper{
-    display: inline;
+.media{
+  border-bottom: none;
 }
 
 </style>

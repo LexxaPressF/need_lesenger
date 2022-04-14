@@ -2,6 +2,7 @@
   <div id="bg_app">
     <Menu/>
     <Feed/>
+    <Footer/>
   </div>
 
 </template>
@@ -9,6 +10,7 @@
 <script>
 import Menu from "@/components/Menu";
 import Feed from "@/pages/Feed";
+import Footer from "./pages/Footer";
 
 let SIF1 = {
   id: 1,
@@ -40,6 +42,7 @@ let SR = {
 export default {
   name: 'App',
   components: {
+    Footer,
     Feed,
     Menu
   },
@@ -98,6 +101,7 @@ export default {
   height: 100vh;
   display: grid;
   grid-template-columns: 180px 4fr;
+  grid-template-rows: auto 90%;
   justify-content: space-between;
   gap: 20px;
 }

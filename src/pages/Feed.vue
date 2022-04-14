@@ -28,6 +28,7 @@
     float:left;
     margin: 74px 8% 0 8%;
     grid-column: 2;
+    grid-row: 1;
 }
 
 h1{
