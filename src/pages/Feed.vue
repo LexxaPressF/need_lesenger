@@ -29,11 +29,19 @@
     margin: 74px 8% 0 8%;
     grid-column: 2;
     grid-row: 1;
+    min-width: ;
 }
 
 h1{
     font-family: 'SF Pro Display Bold', serif !important;
     margin: 34px 0 46px 0;
+}
+
+h2{
+    font-family: 'SF Pro Display Regular', serif;
+    margin: 14px 0 14px 0;
+    font-size: 1.3em;
+    color: black;
 }
 
 p{

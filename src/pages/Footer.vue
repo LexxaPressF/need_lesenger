@@ -2,7 +2,8 @@
   <div class="pages_bg footer">
     <div class="trademark">
       <img id="reversed" src="../assets/img/logo_nl.svg"/>
-      <div class="text">Разработка © 2022
+      <div class="text">
+        <span>Разработка © 2022</span>
         <br> Правила использования контента
         <br> Политика об обработке персональных данных
       </div>
@@ -17,8 +18,8 @@
       <h3>Концерты</h3>
     </div>
     <div class="media">
-      <img class="vk" src="../assets/img/logo_vk.svg"/>
-      <img class="inst" src="../assets/img/logo_inst.svg"/>
+      <a href="https://vk.com/needlesenger"><img class="vk" src="../assets/img/logo_vk.svg"/></a>
+      <a href=""><img class="inst" src="../assets/img/logo_inst.svg"/></a>
     </div>
   </div>
 </template>
@@ -45,28 +46,55 @@ export default {
   color: white;
   font-family: "SF Pro Display Regular", serif;
 
-  font-size: 0.5em;
+  font-size: 0.55em;
   font-weight: lighter !important;
   letter-spacing: 0.2em;
 }
 
 .footer > div{
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 #reversed{
   filter: invert(100%);
-  width:44%;
+  width:36%;
 }
 
 .media{
   display: flex;
   justify-content: center;
+  margin-top: 70px;
   place-items: start;
-  gap:20px;
+  gap:35px;
 }
 
 .media > img{
-  width:26%;
+  width:100px;
+  cursor: pointer;
+}
+
+.text{
+  letter-spacing: 0.1em;
+}
+
+.text > span{
+  line-height: 26px;
+}
+
+.cooperation > h2{
+  color: white;
+  margin-top: 0;
+  margin-bottom: 16px;
+
+}
+
+.email{
+  font-size: 1.2em;
+}
+
+.info{
+  /*margin-top: 14px;*/
+  line-height: 26px;
+  font-size: 1.4em;
 }
 </style>

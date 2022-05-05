@@ -5,6 +5,7 @@
             <li @click="nav('about')">о нас</li>
             <li @click="nav('albums')">альбомы</li>
             <li @click="nav('concerts')">концерты</li>
+            <li @click="nav('memories')">видясики</li>
             <li @click="nav('merch')">мерч</li>
             <li @click="nav('media')">медия</li>
         </ul>

@@ -70,8 +70,6 @@ export default {
   src: url('assets/fonts/SFPRODISPLAYBOLD.woff') format('woff');
 }
 
-
-
 * {
   margin: 0;
   padding: 0;
@@ -100,6 +98,7 @@ export default {
 }
 
 #bg_app{
+  min-width: 950px;
   font-family: "SF Pro Display Regular", serif;
   height: 100vh;
   display: grid;
@@ -109,4 +108,5 @@ export default {
   gap: 20px;
 }
 
+/* С 990 px переход на мобильную версию */
 </style>
