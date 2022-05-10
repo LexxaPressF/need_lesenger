@@ -4,13 +4,18 @@
         <div class="wrapper popular">
             <h2>ПОПУЛЯРНОЕ</h2>
             <div class="wrapper trackCard">
-                <TrackCard/>
-                <TrackCard/>
-                <TrackCard/>
+              <TrackCard v-for="track in this.$store.getters.popularTrackList"
+                         :key="track.id"
+                         :inAlbum="false"
+                         :trackName="track.name.toUpperCase()"
+                         :link="track.link"/>
             </div>
         </div>
         <div class="wrapper albumCard">
-                <AlbumCard/>
+                <AlbumCard v-for="album in this.$store.getters.albumList"
+                           :key="album.id"
+                           :inAlbum="true"
+                           :album="album"/>
         </div>
 
     </div>
@@ -20,8 +25,8 @@
     import AlbumCard from "@/components/AlbumCard";
     import TrackCard from "@/components/TrackCard";
     export default {
-        name: "Albums",
-        components: {TrackCard, AlbumCard},
+      name: "Albums",
+      components: {TrackCard, AlbumCard}
     }
 </script>
 
@@ -38,10 +43,12 @@ h2{
 }
 
 .trackCard{
-    display: flex;
-    flex-wrap: wrap;
-    /*justify-content: space-between;*/
-    align-content: start;
+  display: flex;
+  flex-wrap: wrap;
+  /*height: 120px;*/
+  /*position: absolute;*/
+  /*justify-content: space-between;*/
+  align-content: start;
 }
 
 
