@@ -8,7 +8,8 @@
                          :key="track.id"
                          :inAlbum="false"
                          :trackName="track.name.toUpperCase()"
-                         :link="track.link"/>
+                         :link="track.link"
+                         :cover="track.cover"/>
             </div>
         </div>
         <div class="wrapper albumCard">
@@ -45,9 +46,6 @@ h2{
 .trackCard{
   display: flex;
   flex-wrap: wrap;
-  /*height: 120px;*/
-  /*position: absolute;*/
-  /*justify-content: space-between;*/
   align-content: start;
 }
 

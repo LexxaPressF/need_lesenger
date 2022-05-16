@@ -1,9 +1,27 @@
 export default {
-    actions: {},
+    actions: {
+        mpShown(ctx){
+            ctx.commit('mpShown')
+        },
+        clickPlay(ctx, track) {
+            ctx.commit('clickPlay', track)
+        },
+        next(ctx){
+            ctx.commit('next')
+        },
+        prev(ctx){
+            ctx.commit('prev')
+        }
+    },
     mutations: {
+        mpShown(state){
+          state.mpShown = true
+        },
         clickPlay(state, track) {
             state.playerStatus = !state.playerStatus
-            if (state.currentTrack !== track) state.currentTrack = track
+            if (state.currentTrack !== track) {
+                state.currentTrack = track
+            }
         },
         next(state) {
             state.playerStatus = false
@@ -99,17 +117,20 @@ export default {
             {
                 id: 1,
                 name: "Disease",
-                link: "Need Lesenger - Disease.mp3"
+                link: "Need Lesenger - Disease.mp3",
+                cover: 'SIF2.jpg'
             },
             {
                 id: 2,
                 name: "Love Hate Love",
-                link: "Need Lesenger - Love Hate Love.mp3"
+                link: "Need Lesenger - Love Hate Love.mp3",
+                cover: 'SIF2.jpg',
             },
             {
                 id: 3,
                 name: "Helpless Observer ru",
-                link: "Need Lesenger - Helpless Observer.mp3"
+                link: "Need Lesenger - Helpless Observer.mp3",
+                cover: 'SIF1.jpg',
             }],
         totalTrackList: [
             {
@@ -158,9 +179,11 @@ export default {
             }],
         currentTrack: {},
         playerStatus: false,
+        mpShown: false
     },
     getters: {
         isPlaying: state => state.playerStatus,
+        isPlayerShown: state => state.mpShown,
         currentRun: state => {
             let album = state.totalTrackList
             let track = state.currentTrack

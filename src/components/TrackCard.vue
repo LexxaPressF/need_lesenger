@@ -1,6 +1,6 @@
 <template>
     <div class="card_bg track">
-        <img class="cover" src="../assets/img/SIF2.jpg"/>
+        <img class="cover" :src="require(`../assets/img/${this.$props.cover}`)"/>
         <div class="wrapper trackname">
             <h2>{{trackName}}</h2>
             <p class="pale" v-if="!inAlbum">Need Lesenger</p>
@@ -17,12 +17,12 @@
           trackName: String,
           sign: String,
           link: String,
-          inAlbum: Boolean
+          inAlbum: Boolean,
+          cover: String
         },
         data(){
           return{
             duration: '',
-            // coverLink: String,
           }
         },
         beforeCreate() {
@@ -34,10 +34,6 @@
             if (seconds < 10) seconds = `0${seconds}`
             this.duration = `${minutes}:${seconds}`
           }
-          // if (this.inAlbum){
-          //   this.coverLink = require(`../assets/img/lhl.png`)
-          // }
-          // else this.coverLink = require(`../assets/img/SIF2.jpg`)
         }
     }
 </script>
@@ -45,6 +41,7 @@
 <style scoped>
 .cover{
     width: 70px;
+    cursor: pointer;
 }
 
 .track{

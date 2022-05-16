@@ -3,6 +3,7 @@
     <Menu/>
     <Feed/>
     <Footer/>
+    <MusicPlayer/>
   </div>
 
 </template>
@@ -11,10 +12,12 @@
 import Menu from "@/components/Menu";
 import Feed from "@/pages/Feed";
 import Footer from "./pages/Footer";
+import MusicPlayer from "@/components/MusicPlayer";
 
 export default {
   name: 'App',
   components: {
+    MusicPlayer,
     Footer,
     Feed,
     Menu

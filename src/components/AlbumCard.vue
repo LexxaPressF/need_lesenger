@@ -1,6 +1,8 @@
 <template>
     <div class="card_bg album">
-      <img class="cover" :src="require(`../assets/img/${album.cover}`)" @click="hidden = !hidden"/>
+      <div class="musicPlayer">
+        <img class="cover" :src="require(`../assets/img/${album.cover}`)" @click="albumClick"/>
+      </div>
       <div class="info">
         <h2>{{album.name.toUpperCase()}}</h2>
         <div class="time">Need Lesenger {{album.time}}</div>
@@ -11,7 +13,8 @@
                      :key="track.id"
                      :inAlbum="true"
                      :trackName="track.name.toUpperCase()"
-                     :link="track.link" />
+                     :link="track.link"
+                     :cover="album.cover"/>
       </div>
       </transition>
     </div>
@@ -30,6 +33,20 @@
         return{
           hidden: true
         }
+      },
+      methods:{
+          albumClick(){
+              this.hidden = !this.hidden
+              this.emitter.emit("closeAllExcepts", this.$props.album.name)
+              // this.emitter.emit("musicPlayer", this.$props.album.name)
+              this.$store.dispatch('clickPlay', {track: this.$props.album.tracksList[0].name})
+              this.$store.dispatch('mpShown')
+          }
+      },
+      mounted() {
+          this.emitter.on("closeAllExcepts", exception => {
+              if (this.$props.album.name !== exception) this.hidden = true
+          });
       }
     }
 </script>
@@ -70,18 +87,26 @@ h2{
 
 .albumTracks{
   display: flex;
+  flex-wrap: nowrap;
   flex-direction: column;
+  max-width: 250px;
 }
 
 /*Анимация*/
-/*Сделать так чтобы треки подгружались после выставления высоты*/
-.collaps_lists-enter-active, .collaps_lists-leave-active {
-  transition: all 0.2s;
-  max-height: 230px;
+.collaps_lists-enter-active,
+.collaps_lists-leave-active{
+    transition: all 0.3s ease-in-out;
 }
-.collaps_lists-enter, .collaps_lists-leave-to
-{
-  opacity: 0;
-  max-height: 0;
+
+.collaps_lists-enter-from,
+.collaps_lists-leave-to{
+    transform: translateY(-14px);
+    opacity: 0;
+    max-height: 0;
+}
+
+.collaps_lists-enter-to,
+.collaps_lists-leave-from{
+    max-height: 800px;
 }
 </style>
