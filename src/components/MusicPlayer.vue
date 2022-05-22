@@ -44,9 +44,13 @@
     place-items: center;
 }
 
+.wrapper{
+  justify-content: center;
+  align-items: center;
+}
+
 .cover{
     width: 70px;
-    cursor:pointer;
 }
 
 .pale{
@@ -79,6 +83,11 @@ h2{
     opacity: 90%;
 }
 
+.icons:hover{
+  color: rgba(227, 227, 227, 1);
+  opacity: 90%;
+}
+
 .time{
     font-size: 0.7em;
     width: 100%;
@@ -87,11 +96,89 @@ h2{
 }
 
 .timeLine{
-    width: 70%;
+  width: 70%;
+  display: flex;
+  align-items: center;
 }
 
+/*Сброс input type range*/
+input[type=range] {
+  -webkit-appearance: none; /* Скрывает слайдер, чтобы можно было создать свой */
+  width: 100%; /* Указание параметра ширины требуется для Firefox. */
+  background-color: transparent;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+}
+
+input[type=range]:focus {
+  outline: none; /* Убирает голубую границу у элемента. */
+}
+
+input[type=range]::-ms-track {
+  width: 100%;
+  cursor: pointer;
+  background: transparent; /* Скрывает слайдер, чтобы можно было добавить собственные стили. */
+  border-color: transparent;
+  color: transparent;
+}
+
+/*Стилизация своего ползунка*/
+
 .bar{
-    width: 100%;
-    
+  width: 100%;
+  cursor: pointer;
+}
+/*Обычный*/
+.bar::-webkit-slider-runnable-track{
+  background: rgba(224, 224, 224, 0.85);
+  height: 2px;
+  border-radius: 8px;
+}
+
+.bar::-webkit-slider-thumb {
+  height: 14px;
+  width: 14px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  border-radius: 8px ;
+  margin-top:-6px;
+  background: rgba(227, 227, 227, 0.5);
+}
+
+
+/*Mozila*/
+.bar::-moz-range-track{
+  background: rgba(224, 224, 224, 0.85);
+  height: 2px;
+  border-radius: 8px;
+}
+
+.bar::-moz-range-thumb {
+  height: 14px;
+  width: 14px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  border-radius: 8px ;
+  margin-top:-6px;
+  background: rgba(227, 227, 227, 0.5);
+}
+
+/*IE*/
+.bar::-ms-track{
+  background: rgba(224, 224, 224, 0.85);
+  height: 2px;
+  border-radius: 8px;
+}
+
+.bar::-ms-thumb {
+  height: 14px;
+  width: 14px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  border-radius: 8px ;
+  margin-top:-6px;
+  background: rgba(227, 227, 227, 0.5);
 }
 </style>
