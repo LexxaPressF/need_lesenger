@@ -1,6 +1,6 @@
 <template>
     <div class="card_bg track">
-        <img class="cover" :src="require(`../assets/img/${this.$props.cover}`)"/>
+        <img class="cover" :src="require(`../assets/albums/${this.$props.path}/cover.jpg`)"/>
         <div class="wrapper trackname">
             <h2>{{trackName}}</h2>
             <p class="pale" v-if="!inAlbum">Need Lesenger</p>
@@ -18,7 +18,7 @@
           sign: String,
           link: String,
           inAlbum: Boolean,
-          cover: String
+          path: String
         },
         data(){
           return{
@@ -26,7 +26,7 @@
           }
         },
         beforeCreate() {
-          let aud = new Audio(require(`../assets/music/${this.$props.link}`))
+          let aud = new Audio(require(`../assets/albums/${this.$props.path}/${this.$props.link}`))
           aud.preload = "metadata"
           aud.onloadeddata =()=>{
             let minutes = Math.floor(aud.duration / 60)

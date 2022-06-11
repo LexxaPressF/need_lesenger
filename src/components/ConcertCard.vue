@@ -1,6 +1,6 @@
 <template>
     <div class="card_bg concert">
-        <img class="cover" src="../assets/img/concert_cover_1.svg"/>
+        <img class="cover" src="../assets/img/plugs/concert_cover_1.svg"/>
         <ul class="info">
             <h1>{{name}}THE ROCK FEST</h1>
             <li class="time"><span>{{time}}21 апреля, 18:00</span></li>

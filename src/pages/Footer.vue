@@ -18,8 +18,8 @@
       <h3>Концерты</h3>
     </div>
     <div class="media">
-      <a href="https://vk.com/needlesenger"><img class="vk" src="../assets/img/logo_vk.svg"/></a>
-      <a href=""><img class="inst" src="../assets/img/logo_inst.svg"/></a>
+      <a href="https://vk.com/needlesenger"><img class="vk" src="../assets/img/mediaLogos/vk.svg"/></a>
+      <a href=""><img class="inst" src="../assets/img/mediaLogos/inst.svg"/></a>
     </div>
   </div>
 </template>

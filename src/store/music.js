@@ -1,46 +1,12 @@
 export default {
-    actions: {
-        mpShown(ctx){
-            ctx.commit('mpShown')
-        },
-        clickPlay(ctx, track) {
-            ctx.commit('clickPlay', track)
-        },
-        next(ctx){
-            ctx.commit('next')
-        },
-        prev(ctx){
-            ctx.commit('prev')
-        }
-    },
-    mutations: {
-        mpShown(state){
-          state.mpShown = true
-        },
-        clickPlay(state, track) {
-            state.playerStatus = !state.playerStatus
-            if (state.currentTrack !== track) {
-                state.currentTrack = track
-            }
-        },
-        next(state) {
-            state.playerStatus = false
-
-            let nextTrackIndex = state.currentTrackList.findIndex(track => track.name = state.currentTrack) + 1
-            state.currentTrack = state.currentTrackList[nextTrackIndex]
-        },
-        prev(state) {
-            state.playerStatus = false
-            let prevTrackIndex = state.currentTrackList.findIndex(track => track.name = state.currentTrack) + 1
-            state.currentTrack = state.currentTrackList[prevTrackIndex]
-        }
-    },
+    actions: {},
+    mutations: {},
     state: {
         albumList: [
             {
                 id: 1,
+                path: "SIF1",
                 name: "Self-infected flower, pt. one",
-                cover: 'SIF1.jpg',
                 time: 2021,
                 tracksList: [
                     {
@@ -66,8 +32,8 @@ export default {
             },
             {
                 id: 2,
+                path: "SIF2",
                 name: "Self-infected flower, pt. two",
-                cover: 'SIF2.jpg',
                 time: 2021,
                 tracksList: [
                     {
@@ -88,8 +54,9 @@ export default {
             },
             {
                 id: 3,
+                path: "S&R",
                 name: "Slowed and Reverbed",
-                cover: 'lhl.png',
+                cover: 'cover.jpg',
                 time: 2021,
                 tracksList: [
                     {
@@ -117,20 +84,22 @@ export default {
             {
                 id: 1,
                 name: "Disease",
+                path: "SIF2",
                 link: "Need Lesenger - Disease.mp3",
-                cover: 'SIF2.jpg'
+                cover: 'cover.jpg'
             },
             {
                 id: 2,
                 name: "Love Hate Love",
+                path: "SIF2",
                 link: "Need Lesenger - Love Hate Love.mp3",
-                cover: 'SIF2.jpg',
             },
             {
                 id: 3,
                 name: "Helpless Observer ru",
+                path: "SIF1",
                 link: "Need Lesenger - Helpless Observer.mp3",
-                cover: 'SIF1.jpg',
+                
             }],
         totalTrackList: [
             {
@@ -177,13 +146,9 @@ export default {
                 name: "A Cold Place (S&R)",
                 link: "Need Lesenger - A Cold Place (Slowed).mp3"
             }],
-        currentTrack: {},
-        playerStatus: false,
-        mpShown: false
+        currentTrack: {}
     },
     getters: {
-        isPlaying: state => state.playerStatus,
-        isPlayerShown: state => state.mpShown,
         currentRun: state => {
             let album = state.totalTrackList
             let track = state.currentTrack

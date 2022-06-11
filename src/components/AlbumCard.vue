@@ -1,7 +1,7 @@
 <template>
     <div class="card_bg album">
       <div class="musicPlayer">
-        <img class="cover" :src="require(`../assets/img/${album.cover}`)" @click="albumClick"/>
+        <img class="cover" :src="require(`../assets/albums/${album.path}/cover.jpg`)" @click="albumClick"/>
       </div>
       <div class="info">
         <h2>{{album.name.toUpperCase()}}</h2>
@@ -14,7 +14,7 @@
                      :inAlbum="true"
                      :trackName="track.name.toUpperCase()"
                      :link="track.link"
-                     :cover="album.cover"/>
+                     :path="album.path"/>
       </div>
       </transition>
     </div>

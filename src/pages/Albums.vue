@@ -9,7 +9,7 @@
                          :inAlbum="false"
                          :trackName="track.name.toUpperCase()"
                          :link="track.link"
-                         :cover="track.cover"/>
+                         :path="track.path"/>
             </div>
         </div>
         <div class="wrapper albumCard">

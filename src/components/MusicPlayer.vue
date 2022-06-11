@@ -1,6 +1,6 @@
 <template>
     <div class="musicPlayer" v-if="this.$store.getters.isPlayerShown">
-        <img class="cover" src="../assets/img/SIF2.jpg"/>
+        <img class="cover" src="../assets/albums/SIF2/cover.jpg"/>
         <div class="wrapper trackname">
             <h2>{{trackName}} LOVE HATE LOVE</h2>
             <p class="pale">Need Lesenger</p>
@@ -16,6 +16,10 @@
                 <input class="bar" type="range"/>
             </div>
             <div class="trackDuration">{{this.duration}}3:43</div>
+        </div>
+        <div class="wrapper close">
+            <font-awesome-icon class="icons" :icon="['fas', 'close']"
+            @click="this.$store.dispatch('mpClose')"/>
         </div>
     </div>
 </template>
@@ -81,6 +85,7 @@ h2{
 .icons{
     color: white;
     opacity: 90%;
+    cursor: pointer;
 }
 
 .icons:hover{

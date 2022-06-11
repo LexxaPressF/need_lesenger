@@ -1,6 +1,6 @@
 <template>
     <div class="card_bg merches">
-        <img class="cover" src="../assets/img/merch_cover_1.svg"/>
+        <img class="cover" src="../assets/img/plugs/merch_cover_1.svg"/>
         <div class="info">
             <h1>{{name}}SELF-INFECTED</h1>
             <div class="where">{{where}}Концерт 21 апреля, 2021 г</div>

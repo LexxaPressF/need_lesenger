@@ -1,19 +1,12 @@
 import { createStore } from "vuex";
 import music from "@/store/music";
+import player from "@/store/player";
 
 const store = createStore({
     modules: {
         music,
-        // concerts,
-        // merch,
+        player
     }
 });
 
 export default store;
-
-// currentAlbum: {},
-// trackName: "",
-//     isPlaying: false,
-//     currentTrack: new Audio(),
-//     currentTime: 0,
-//     duration: 0
