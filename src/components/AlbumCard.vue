@@ -1,6 +1,6 @@
 <template>
     <div class="card_bg album">
-      <div class="musicPlayer">
+      <div class="wrapper albumScroll">
         <img class="cover" :src="require(`../assets/albums/${album.path}/cover.jpg`)" @click="albumClick"/>
       </div>
       <div class="info">
@@ -41,6 +41,11 @@
               // this.emitter.emit("musicPlayer", this.$props.album.name)
               this.$store.dispatch('clickPlay', {track: this.$props.album.tracksList[0].name})
               this.$store.dispatch('mpShown')
+              if (this.hidden === false){
+                  const position = document.querySelectorAll(`.albumScroll`)[this.$props.album.id - 1].offsetTop - 10
+                  window.scrollTo({top:position, behavior:"smooth"})
+              }
+
           }
       },
       mounted() {

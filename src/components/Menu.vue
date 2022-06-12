@@ -19,7 +19,6 @@ export default {
     methods:{
       nav(to){
         const position = document.querySelector(`.${to}`).offsetTop
-        console.log(position)
         window.scrollTo({top:position, behavior:"smooth"})
       }
     }
