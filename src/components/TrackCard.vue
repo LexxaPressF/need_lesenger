@@ -1,6 +1,7 @@
 <template>
     <div class="card_bg track">
-        <img class="cover" :src="require(`../assets/albums/${this.$props.path}/cover.jpg`)"/>
+        <img class="cover" :src="require(`../assets/albums/${this.$props.path}/cover.jpg`)"
+             @click="playTrack"/>
         <div class="wrapper trackname">
             <h2>{{trackName}}</h2>
             <p class="pale" v-if="!inAlbum">Need Lesenger</p>
@@ -34,6 +35,16 @@
             if (seconds < 10) seconds = `0${seconds}`
             this.duration = `${minutes}:${seconds}`
           }
+        },
+        methods:{
+            playTrack(){
+                let where = ''
+                if (this.inAlbum === false) where = 'popular'
+                else where = 'album'
+                this.$store.dispatch('play', [where, this.trackName])
+                    .then(this.$store.dispatch('mpShown'))
+
+            }
         }
     }
 </script>

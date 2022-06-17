@@ -28,7 +28,6 @@
       props: {
         album: Object
       },
-      //повесить ивент на @click, чтобы закрывал все остальные албомы, когда происходил
       data(){
         return{
           hidden: true
@@ -38,10 +37,9 @@
           albumClick(){
               this.hidden = !this.hidden
               this.emitter.emit("closeAllExcepts", this.$props.album.name)
-              // this.emitter.emit("musicPlayer", this.$props.album.name)
-              this.$store.dispatch('clickPlay', {track: this.$props.album.tracksList[0].name})
-              this.$store.dispatch('mpShown')
               if (this.hidden === false){
+                  this.$store.dispatch('play', ['inAlbum', this.$props.album.tracksList[0].name])
+                      .then(this.$store.dispatch('mpShown'))
                   const position = document.querySelectorAll(`.albumScroll`)[this.$props.album.id - 1].offsetTop - 10
                   window.scrollTo({top:position, behavior:"smooth"})
               }

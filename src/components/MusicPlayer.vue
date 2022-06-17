@@ -1,21 +1,21 @@
 <template>
     <div class="musicPlayer" v-if="this.$store.getters.isPlayerShown">
-        <img class="cover" src="../assets/albums/SIF2/cover.jpg"/>
+        <img class="cover" :src="track.cover"/>
         <div class="wrapper trackname">
-            <h2>{{trackName}} LOVE HATE LOVE</h2>
+            <h2>{{track.name.toUpperCase()}}</h2>
             <p class="pale">Need Lesenger</p>
         </div>
         <div class="wrapper controls">
-            <font-awesome-icon class="icons" :icon="['fas','backward']" />
+            <font-awesome-icon class="icons" :icon="['fas','backward']" @click="this.$store.dispatch('prev')"/>
             <font-awesome-icon class="icons" :icon="['fas','pause']" />
-            <font-awesome-icon class="icons" :icon="['fas','forward']" />
+            <font-awesome-icon class="icons" :icon="['fas','forward']" @click="this.$store.dispatch('next')"/>
         </div>
         <div class="wrapper time pale">
-            <div class="currentTime">{{this.currentTime}}1:13</div>
+            <div class="currentTime">{{track.currentTime}}1:13</div>
             <div class="timeLine">
                 <input class="bar" type="range"/>
             </div>
-            <div class="trackDuration">{{this.duration}}3:43</div>
+            <div class="trackDuration">{{track.duration}}</div>
         </div>
         <div class="wrapper close">
             <font-awesome-icon class="icons" :icon="['fas', 'close']"
@@ -25,9 +25,31 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex'
     export default {
-        name: "MusicPlayer"
+        name: "MusicPlayer",
+        computed: {
+            ...mapGetters({
+                track: 'currentTrack'
+            })
+        },
+        watch:{
+            track: function () {
+                let aud = new Audio(require(`../assets/albums/${this.track.path}/${this.track.link}`))
+                aud.preload = "metadata"
+                aud.onloadeddata =()=>{
+                    let minutes = Math.floor(aud.duration / 60)
+                    let seconds = Math.floor(aud.duration) % 60
+                    if (seconds < 10) seconds = `0${seconds}`
+                    this.track.duration = `${minutes}:${seconds}`
+                }
+                this.track.cover = require(`../assets/albums/${this.track.path}/cover.jpg`)
+                // if (){
+                //     this.emitter.emit("closeAllExcepts", this.$props.album.name)
+                // }
+            },
     }
+        }
 </script>
 
 <style scoped>
