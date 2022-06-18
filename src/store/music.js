@@ -177,7 +177,6 @@ export default {
                   name: state.albumList[i].name,
               })
           }
-          console.log(list)
           return list
         },
         totalTrackList: state => state.totalTrackList,

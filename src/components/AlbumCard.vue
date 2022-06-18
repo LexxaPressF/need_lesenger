@@ -40,8 +40,6 @@
               if (this.hidden === false){
                   this.$store.dispatch('play', ['inAlbum', this.$props.album.tracksList[0].name])
                       .then(this.$store.dispatch('mpShown'))
-                  const position = document.querySelectorAll(`.albumScroll`)[this.$props.album.id - 1].offsetTop - 10
-                  window.scrollTo({top:position, behavior:"smooth"})
               }
 
           }
@@ -49,6 +47,11 @@
       mounted() {
           this.emitter.on("closeAllExcepts", exception => {
               if (this.$props.album.name !== exception) this.hidden = true
+              else {
+                this.hidden = false
+                const position = document.querySelectorAll(`.albumScroll`)[this.$props.album.id - 1].offsetTop - 10
+                window.scrollTo({top:position, behavior:"smooth"})
+              }
           });
       }
     }

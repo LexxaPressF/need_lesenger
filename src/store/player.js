@@ -14,16 +14,26 @@ export default {
             else data[0] = rootState.music.totalTrackList
             commit('play', data)
         },
-        next({commit, rootGetters}){
-            let albumNames = rootGetters.albumNames
-            commit('next', albumNames)
+        pause(ctx){
+          ctx.commit('pause')
         },
-        prev({commit, rootGetters}){
-            let albumNames = rootGetters.albumNames
-            commit('prev', albumNames)
+        continue(ctx){
+          ctx.commit('continue')
+        },
+        next(ctx){
+            ctx.commit('next')
+        },
+        prev(ctx){
+            ctx.commit('prev')
+        },
+        updateTrack(ctx){
+            ctx.commit('updateTrack')
         }
     },
     mutations: {
+        updateTrack(state){
+            state.playingTrack = new Audio(require(`../assets/albums/${state.currentTrack.path}/${state.currentTrack.link}`))
+        },
         mpShown(state) {
             state.mpShown = true
         },
@@ -38,46 +48,45 @@ export default {
                     break
                 }
             }
+            state.playerStatus = true
+            this.commit('updateTrack')
+            state.playingTrack.play()
         },
-        next(state, albumNames) {
+        pause(state) {
+            state.playingTrack.pause()
             state.playerStatus = false
+        },
+        continue(state){
+            state.playingTrack.play()
+            state.playerStatus = true
+        },
+        next(state) {
+            this.commit('pause')
             if (state.currentTrack.id + 1 > state.currentPlaylist.length) {
                 state.currentTrack = state.currentPlaylist[0]
             } else state.currentTrack = state.currentPlaylist[state.currentTrack.id + 1]
-            if (state.currentTrack.path !== state.currentPlaylist[state.currentTrack.id - 1].path) {
-                let albumName = ''
-                for (let i = 0; i < albumNames.length; i++) {
-                    if (state.currentPlaylist[state.currentTrack.id - 1].path === albumNames[i].path) {
-                        albumName = albumNames[i].name
-                        break
-                    }
-                }
-                this.emitter.emit("closeAllExcepts", albumName)
-            }
+            this.commit('updateTrack')
+            this.commit('continue')
         },
-        prev(state, albumNames) {
-            state.playerStatus = false
+        prev(state) {
+            this.commit('pause')
             if (state.currentTrack.id - 1 < 0) {
                 state.currentTrack = state.currentPlaylist[state.currentPlaylist.length - 1]
             } else state.currentTrack = state.currentPlaylist[state.currentTrack.id - 1]
-            if (state.currentTrack.path !== state.currentPlaylist[state.currentTrack.id + 1].path) {
-                for (let i = 0; i < albumNames.length; i++) {
-                    if (state.currentPlaylist[state.currentTrack.id + 1].path === albumNames[i].path) {
-                        this.emitter.emit("closeAllExcepts", albumNames[i].name)
-                        break
-                    }
-                }
-            }
+            this.commit('updateTrack')
+            this.commit('continue')
         }
     },
     state: {
         playerStatus: false,
         mpShown: false,
         currentPlaylist: [],
-        currentTrack: {}
+        currentTrack: {},
+        playingTrack: {} //for audio obj
     },
     getters: {
         currentTrack: state => state.currentTrack,
+        playerStatus: state => state.playerStatus,
         isPlaying: state => state.playerStatus,
         isPlayerShown: state => state.mpShown,
     }

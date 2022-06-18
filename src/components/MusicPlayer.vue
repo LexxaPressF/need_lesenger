@@ -7,7 +7,8 @@
         </div>
         <div class="wrapper controls">
             <font-awesome-icon class="icons" :icon="['fas','backward']" @click="this.$store.dispatch('prev')"/>
-            <font-awesome-icon class="icons" :icon="['fas','pause']" />
+            <font-awesome-icon class="icons" v-if="status" :icon="['fas','pause']" @click="this.$store.dispatch('pause')" />
+            <font-awesome-icon class="icons" v-else :icon="['fas','play']" @click="this.$store.dispatch('continue')" />
             <font-awesome-icon class="icons" :icon="['fas','forward']" @click="this.$store.dispatch('next')"/>
         </div>
         <div class="wrapper time pale">
@@ -28,9 +29,15 @@
     import { mapGetters } from 'vuex'
     export default {
         name: "MusicPlayer",
+        data(){
+          return{
+            trackPath: ''
+          }
+        },
         computed: {
             ...mapGetters({
-                track: 'currentTrack'
+                track: 'currentTrack',
+                status: 'playerStatus'
             })
         },
         watch:{
@@ -44,10 +51,16 @@
                     this.track.duration = `${minutes}:${seconds}`
                 }
                 this.track.cover = require(`../assets/albums/${this.track.path}/cover.jpg`)
-                // if (){
-                //     this.emitter.emit("closeAllExcepts", this.$props.album.name)
-                // }
+                this.trackPath = this.track.path
             },
+            trackPath: function () {
+              let albumNames = this.$store.getters.albumNames
+              for (let i = 0; i < albumNames.length; i++) {
+                if (this.trackPath === albumNames[i].path){
+                  this.emitter.emit("closeAllExcepts", albumNames[i].name)
+                }
+              }
+            }
     }
         }
 </script>
