@@ -12,9 +12,10 @@
             <font-awesome-icon class="icons" :icon="['fas','forward']" @click="this.$store.dispatch('next')"/>
         </div>
         <div class="wrapper time pale">
-            <div class="currentTime">{{track.currentTime}}1:13</div>
+            <div class="currentTime">{{correctTime(currentTime)}}</div>
             <div class="timeLine">
-                <input class="bar" type="range"/>
+                <input class="bar" type="range" min="0" :max="playing.duration"
+                       v-model="currentTime" v-on:input="setTime" />
             </div>
             <div class="trackDuration">{{track.duration}}</div>
         </div>
@@ -31,27 +32,29 @@
         name: "MusicPlayer",
         data(){
           return{
-            trackPath: ''
+            trackPath: '',
+            currentTime: 0
           }
         },
         computed: {
             ...mapGetters({
                 track: 'currentTrack',
-                status: 'playerStatus'
-            })
+                status: 'playerStatus',
+                playing: 'playingTrack'
+            }),
         },
         watch:{
             track: function () {
                 let aud = new Audio(require(`../assets/albums/${this.track.path}/${this.track.link}`))
                 aud.preload = "metadata"
                 aud.onloadeddata =()=>{
-                    let minutes = Math.floor(aud.duration / 60)
-                    let seconds = Math.floor(aud.duration) % 60
-                    if (seconds < 10) seconds = `0${seconds}`
-                    this.track.duration = `${minutes}:${seconds}`
+                    this.track.duration = this.correctTime(aud.duration)
                 }
                 this.track.cover = require(`../assets/albums/${this.track.path}/cover.jpg`)
                 this.trackPath = this.track.path
+                this.playing.ontimeupdate = () => {
+                  this.currentTime = this.playing.currentTime
+                }
             },
             trackPath: function () {
               let albumNames = this.$store.getters.albumNames
@@ -60,14 +63,29 @@
                   this.emitter.emit("closeAllExcepts", albumNames[i].name)
                 }
               }
+            },
+            currentTime: function () {
+              if (this.currentTime === this.playing.duration) this.$store.commit('next')
             }
-    }
+    },
+      methods:{
+          correctTime(time){
+            let minutes = Math.floor(time / 60)
+            let seconds = Math.floor(time) % 60
+            if (seconds < 10) seconds = `0${seconds}`
+            return `${minutes}:${seconds}`
+          },
+          setTime(){
+            this.$store.dispatch('setTime', parseInt(event.target.value))
+          }
+      }
         }
 </script>
 
 <style scoped>
 .musicPlayer{
     width: 62%;
+    min-width: 700px;
     padding: 0 40px 0 40px;
     position: fixed;
     height: 88px;
@@ -105,8 +123,8 @@ h2{
 }
 
 .trackname{
-    min-width: 100px;
-    max-width:120px
+    width:200px;
+    text-align: start;
 }
 
 .controls{
@@ -139,6 +157,10 @@ h2{
   width: 70%;
   display: flex;
   align-items: center;
+}
+
+.close{
+  width:10px;
 }
 
 /*Сброс input type range*/
@@ -175,6 +197,7 @@ input[type=range]::-ms-track {
   background: rgba(224, 224, 224, 0.85);
   height: 2px;
   border-radius: 8px;
+  /*border: solid 20px transparent;*/
 }
 
 .bar::-webkit-slider-thumb {

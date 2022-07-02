@@ -28,6 +28,9 @@ export default {
         },
         updateTrack(ctx){
             ctx.commit('updateTrack')
+        },
+        setTime(ctx, time){
+            ctx.commit('setTime', time)
         }
     },
     mutations: {
@@ -41,6 +44,7 @@ export default {
             state.mpShown = false
         },
         play(state, data) {
+            if (state.currentPlaylist.length !== 0) this.commit('pause')
             state.currentPlaylist = data[0]
             for (let i = 0; i < state.currentPlaylist.length; i++) {
                 if (state.currentPlaylist[i].name.toUpperCase() === data[1].toUpperCase()) {
@@ -48,9 +52,8 @@ export default {
                     break
                 }
             }
-            state.playerStatus = true
             this.commit('updateTrack')
-            state.playingTrack.play()
+            this.commit('continue')
         },
         pause(state) {
             state.playingTrack.pause()
@@ -62,7 +65,7 @@ export default {
         },
         next(state) {
             this.commit('pause')
-            if (state.currentTrack.id + 1 > state.currentPlaylist.length) {
+            if (state.currentTrack.id + 1 > state.currentPlaylist.length - 1) {
                 state.currentTrack = state.currentPlaylist[0]
             } else state.currentTrack = state.currentPlaylist[state.currentTrack.id + 1]
             this.commit('updateTrack')
@@ -75,6 +78,10 @@ export default {
             } else state.currentTrack = state.currentPlaylist[state.currentTrack.id - 1]
             this.commit('updateTrack')
             this.commit('continue')
+        },
+        setTime(state, time) {
+            console.log(time)
+            state.playingTrack.currentTime = time
         }
     },
     state: {
@@ -82,10 +89,12 @@ export default {
         mpShown: false,
         currentPlaylist: [],
         currentTrack: {},
-        playingTrack: {} //for audio obj
+        playingTrack: {}, //for audio obj
+
     },
     getters: {
         currentTrack: state => state.currentTrack,
+        playingTrack: state => state.playingTrack,
         playerStatus: state => state.playerStatus,
         isPlaying: state => state.playerStatus,
         isPlayerShown: state => state.mpShown,
