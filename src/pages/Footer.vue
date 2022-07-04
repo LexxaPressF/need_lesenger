@@ -93,7 +93,6 @@ export default {
 }
 
 .info{
-  /*margin-top: 14px;*/
   line-height: 26px;
   font-size: 1.4em;
 }

@@ -48,7 +48,6 @@ export default {
 
 ::-webkit-scrollbar{
   width: 37px;
-  height: 100px;
 }
 
 ::-webkit-scrollbar-thumb{
@@ -67,10 +66,11 @@ export default {
   background-clip: padding-box;
 }
 
+
 #bg_app{
   min-width: 950px;
   font-family: "SF Pro Display Regular", serif;
-  height: 100vh;
+  height: 130vh;
   display: grid;
   grid-template-columns: 180px 4fr;
   grid-template-rows: auto 16%;
