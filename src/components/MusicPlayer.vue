@@ -1,186 +1,247 @@
 <template>
-    <div id="bg">
-        <div id="cover" v-bind:style="{ backgroundImage: `url(${getCover()})`}">
+    <div class="musicPlayer" v-if="this.$store.getters.isPlayerShown">
+        <img class="cover" :src="track.cover"/>
+        <div class="wrapper trackname">
+            <h2>{{track.name.toUpperCase()}}</h2>
+            <p class="pale">Need Lesenger</p>
         </div>
-        <div id="controls">
-            <a class="btn" @click="previousTrack"><i class="fas fa-backward"></i></a>
-            <a class="btn" v-if="isPlaying" @click="playTrack()"><i class="fas fa-stop"></i></a>
-            <a class="btn" v-else @click="playTrack()"><i class="fas fa-play"></i></a>
-            <a class="btn" @click="nextTrack"><i class="fas fa-forward"></i></a>
+        <div class="wrapper controls">
+            <font-awesome-icon class="icons" :icon="['fas','backward']" @click="this.$store.dispatch('prev')"/>
+            <font-awesome-icon class="icons" v-if="status" :icon="['fas','pause']" @click="this.$store.dispatch('pause')" />
+            <font-awesome-icon class="icons" v-else :icon="['fas','play']" @click="this.$store.dispatch('continue')" />
+            <font-awesome-icon class="icons" :icon="['fas','forward']" @click="this.$store.dispatch('next')"/>
         </div>
-        <div id="title">
-            {{trackName}}
+        <div class="wrapper time pale">
+            <div class="currentTime">{{correctTime(currentTime)}}</div>
+            <div class="timeLine">
+                <input class="bar" type="range" min="0" :max="playing.duration"
+                       v-model="currentTime" v-on:input="setTime" />
+            </div>
+            <div class="trackDuration">{{track.duration}}</div>
         </div>
-        <div id="timeline">
-            <div id="playhead" v-bind:style="{marginLeft: `${100 * this.currentTrack.currentTime / this.duration}%`}"></div>
+        <div class="wrapper close">
+            <font-awesome-icon class="icons" :icon="['fas', 'close']"
+            @click="this.$store.dispatch('mpClose')"/>
         </div>
     </div>
 </template>
 
 <script>
+    import { mapGetters } from 'vuex'
     export default {
         name: "MusicPlayer",
-        data() {
-            return {
-                currentAlbum: {},
-                trackName: "",
-                isPlaying: false,
-                currentTrack: new Audio(),
-                duration: 0
-            }
+        data(){
+          return{
+            trackPath: '',
+            currentTime: 0
+          }
         },
-        mounted(){
-            this.emitter.on("trackChosen",
-                    chosenTrack =>{
-                this.currentAlbum = chosenTrack[0]
-                this.trackName = chosenTrack[1]
-                this.currentTrack.pause()
-                this.currentTrack = new Audio(require(`../assets/music/${this.currentAlbum.music[this.currentAlbum.tracks.indexOf(this.trackName)]}`))
-                this.currentTrack.play()
-                this.isPlaying = true
-            })
+        computed: {
+            ...mapGetters({
+                track: 'currentTrack',
+                status: 'playerStatus',
+                playing: 'playingTrack'
+            }),
         },
-        methods: {
-            getCover(){
-                if (Object.keys(this.currentAlbum).length === 0) return require(`../assets/img/none.jpg`)
-                else return require(`../assets/img/${this.currentAlbum.cover}`)
-            },
-            playTrack(){
-                this.isPlaying = !this.isPlaying
-                this.duration = this.currentTrack.duration
-                if (this.isPlaying === true) {
-                    this.currentTrack.play()
+        watch:{
+            track: function () {
+                let aud = new Audio(require(`../assets/albums/${this.track.path}/${this.track.link}`))
+                aud.preload = "metadata"
+                aud.onloadeddata =()=>{
+                    this.track.duration = this.correctTime(aud.duration)
                 }
-                else {
-                    this.currentTrack.pause()
+                this.track.cover = require(`../assets/albums/${this.track.path}/cover.jpg`)
+                this.trackPath = this.track.path
+                this.playing.ontimeupdate = () => {
+                  this.currentTime = this.playing.currentTime
                 }
             },
-            previousTrack(){
-                this.isPlaying = true
-                this.currentTrack.pause()
-                this.currentTrack = new Audio(require(`../assets/music/${this.currentAlbum.music[this.currentAlbum.tracks.indexOf(this.trackName) - 1]}`))
-                this.currentTrack.play()
-                this.trackName = this.currentAlbum.tracks[this.currentAlbum.tracks.indexOf(this.trackName) - 1]
+            trackPath: function () {
+              let albumNames = this.$store.getters.albumNames
+              for (let i = 0; i < albumNames.length; i++) {
+                if (this.trackPath === albumNames[i].path){
+                  this.emitter.emit("closeAllExcepts", albumNames[i].name)
+                }
+              }
             },
-            nextTrack(){
-                this.isPlaying = true
-                this.currentTrack.pause()
-                this.currentTrack = new Audio(require(`../assets/music/${this.currentAlbum.music[this.currentAlbum.tracks.indexOf(this.trackName) + 1]}`))
-                this.currentTrack.play()
-                this.trackName = this.currentAlbum.tracks[this.currentAlbum.tracks.indexOf(this.trackName) + 1]
+            currentTime: function () {
+              if (this.currentTime === this.playing.duration) this.$store.commit('next')
             }
+    },
+      methods:{
+          correctTime(time){
+            let minutes = Math.floor(time / 60)
+            let seconds = Math.floor(time) % 60
+            if (seconds < 10) seconds = `0${seconds}`
+            return `${minutes}:${seconds}`
+          },
+          setTime(){
+            this.$store.dispatch('setTime', parseInt(event.target.value))
+          }
+      }
         }
-    }
 </script>
 
 <style scoped>
-#bg{
-    grid-row: 1;
-    grid-column: 1;
-    display: grid;
-    border-radius: 20px 50px 20px 50px;
-    grid-template-rows: 1fr 1fr;
-    grid-template-columns: 100px 200px auto;
-    transform: skewX(-4deg);
-    width: 50vw;
-    margin: 0 auto;
-
-    /*Для таба как для кнопки*/
-    position: relative;
-    padding: 1em 1.8em;
-    outline: none;
-    border: 1px solid #303030;
-    color: white;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-size: 15px;
-    overflow: hidden;
-    transition: 0.2s;
-    font-weight: bold;
-}
-
-#bg:hover {
-    box-shadow: 0 0 10px #ae00ff, 0 0 25px #001eff, 0 0 50px #ae00ff;
-    transition-delay: 0.1s;
-}
-
-#cover{
-    grid-row: 1/3;
-    grid-column: 1;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-}
-
-#controls{
-    grid-row: 1/3;
-    grid-column: 2;
-}
-
-
-#title{
-    font-size: 20px;
-    margin: 10px 0 2px 8px;
-    vertical-align: bottom;
-    grid-row: 1;
-    grid-column: 3;
-}
-
-#timeline{
-    cursor: pointer;
-    grid-row: 2;
-    grid-column: 3;
-    border: 1px rgba(111, 111, 111, 0.5) solid;
-    height: 11px;
-    float: left;
-    border-radius: 15px;
-}
-
-#playhead{
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    margin-top: 1px;
-    background: rgba(111, 111, 111, 0.5);
-}
-
-#bg:hover #playhead{
-    background: rgb(126, 1, 184);
-    box-shadow: 0 0 7px #ae00ff, 0 0 5px #001eff, 0 0 20px #ae00ff;
-    transition-delay: 0.1s;
-}
-
-
-/*Стиль для кнопок переключения*/
-
-#controls{
-    transform: skewX(-2deg);
+.musicPlayer{
+    width: 62%;
+    min-width: 700px;
+    padding: 0 40px 0 40px;
+    position: fixed;
+    height: 88px;
+    bottom: 0;
+    left: 19%;
+    background: rgba(114, 95, 234, 0.85);
+    backdrop-filter: blur(4px);
+    border-radius: 28px 28px 0 0;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    height: 80px;
+    flex-wrap: nowrap;
+    column-gap: 20px;
+    place-items: center;
 }
 
-.btn{
-    cursor: pointer;
-    height: 50px;
-    width: 30px;
-    border-radius: 10px 20px 10px 20px;
+.wrapper{
+  justify-content: center;
+  align-items: center;
+}
+
+.cover{
+    width: 70px;
+}
+
+.pale{
+    font-family: 'Verdana', serif;
+    font-size: 0.8em;
+    color: rgba(227, 227, 227, 1);
+}
+
+h2{
+    font-size: 0.8em;
+    color: white;
+    margin: 10px 0 10px 0;
+}
+
+.trackname{
+    width:200px;
+    text-align: start;
+}
+
+.controls{
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: 20px;
-    text-align: center;
-    color: rgba(102, 102, 102, 0.5);
-    text-decoration: none;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    column-gap:8px;
+    cursor: pointer;
 }
 
-#bg:hover .btn{
-    box-shadow: 0 0 10px #ae00ff, 0 0 25px #001eff, 0 0 50px #ae00ff;
-    color: #7a00bb;
-    transition-delay: 0.1s;
+.icons{
+    color: white;
+    opacity: 90%;
+    cursor: pointer;
 }
-    
+
+.icons:hover{
+  color: rgba(227, 227, 227, 1);
+  opacity: 90%;
+}
+
+.time{
+    font-size: 0.7em;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.timeLine{
+  width: 70%;
+  display: flex;
+  align-items: center;
+}
+
+.close{
+  width:10px;
+}
+
+/*Сброс input type range*/
+input[type=range] {
+  -webkit-appearance: none; /* Скрывает слайдер, чтобы можно было создать свой */
+  width: 100%; /* Указание параметра ширины требуется для Firefox. */
+  background-color: transparent;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+}
+
+input[type=range]:focus {
+  outline: none; /* Убирает голубую границу у элемента. */
+}
+
+input[type=range]::-ms-track {
+  width: 100%;
+  cursor: pointer;
+  background: transparent; /* Скрывает слайдер, чтобы можно было добавить собственные стили. */
+  border-color: transparent;
+  color: transparent;
+}
+
+/*Стилизация своего ползунка*/
+
+.bar{
+  width: 100%;
+  cursor: pointer;
+}
+/*Обычный*/
+.bar::-webkit-slider-runnable-track{
+  background: rgba(224, 224, 224, 0.85);
+  height: 2px;
+  border-radius: 8px;
+  /*border: solid 20px transparent;*/
+}
+
+.bar::-webkit-slider-thumb {
+  height: 14px;
+  width: 14px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  border-radius: 8px ;
+  margin-top:-6px;
+  background: rgba(227, 227, 227, 0.5);
+}
+
+
+/*Mozila*/
+.bar::-moz-range-track{
+  background: rgba(224, 224, 224, 0.85);
+  height: 2px;
+  border-radius: 8px;
+}
+
+.bar::-moz-range-thumb {
+  height: 14px;
+  width: 14px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  border-radius: 8px ;
+  margin-top:-6px;
+  background: rgba(227, 227, 227, 0.5);
+}
+
+/*IE*/
+.bar::-ms-track{
+  background: rgba(224, 224, 224, 0.85);
+  height: 2px;
+  border-radius: 8px;
+}
+
+.bar::-ms-thumb {
+  height: 14px;
+  width: 14px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  border-radius: 8px ;
+  margin-top:-6px;
+  background: rgba(227, 227, 227, 0.5);
+}
 </style>
