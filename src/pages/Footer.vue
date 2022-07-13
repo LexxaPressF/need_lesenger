@@ -38,6 +38,7 @@ export default {
 
   background-color: #725FEA;
   width: 100%;
+  height: 68%;
 
   display: flex;
   gap: 8%;

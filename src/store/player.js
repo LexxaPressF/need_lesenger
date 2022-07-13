@@ -31,6 +31,9 @@ export default {
         },
         setTime(ctx, time){
             ctx.commit('setTime', time)
+        },
+        setVolume(ctx, volume){
+            ctx.commit('setVolume', volume)
         }
     },
     mutations: {
@@ -80,8 +83,10 @@ export default {
             this.commit('continue')
         },
         setTime(state, time) {
-            console.log(time)
             state.playingTrack.currentTime = time
+        },
+        setVolume(state, volume) {
+            state.playingTrack.volume = volume
         }
     },
     state: {

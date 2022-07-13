@@ -13,7 +13,6 @@
 <script>
     export default {
         name: "TrackCard",
-      // понять как отслеживать соседние треки
         props:{
           trackName: String,
           sign: String,
