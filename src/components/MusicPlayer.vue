@@ -185,13 +185,11 @@ h2{
 
 .icons{
     color: white;
-    opacity: 90%;
     cursor: pointer;
 }
 
 .icons:hover{
   color: rgb(227, 227, 227);
-  opacity: 90%;
 }
 
 .time{

@@ -48,7 +48,7 @@ export default {
   font-family: "SF Pro Display Regular", serif;
 
   font-size: 0.55em;
-  font-weight: lighter !important;
+  font-weight: lighter;
   letter-spacing: 0.2em;
 }
 

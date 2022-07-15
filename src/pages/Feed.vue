@@ -33,7 +33,7 @@
 }
 
 h1{
-    font-family: 'SF Pro Display Bold', serif !important;
+    font-family: 'SF Pro Display Bold', serif;
     margin: 34px 0 46px 0;
 }
 
